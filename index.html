@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>瑯琊閣・風雲思辨討論區 |《琅琊榜》原著深度文本考證與思辨研討平台</title>
+  <!-- Google allowlisted Tailwind 核心樣式庫 -->
+  <script src="https://www.gstatic.com/antigravity/web/dev/tailwindcss.min.js"></script>
+  <!-- 古風宣紙墨黛、硃砂金石印章與夜間青霜樣式表 -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+  <!-- ======================================================================
+       全域頂部導覽列 (Sticky Header)
+       ====================================================================== -->
+  <header class="site-header">
+    <div class="nav-container">
+      <a href="javascript:void(0)" class="brand-badge" onclick="window.App.switchTab('threads')">
+        <div class="brand-logo-seal">瑯</div>
+        <div>
+          <div class="brand-title font-serif-tc">瑯琊討論區・風雲思辨閣</div>
+          <div class="brand-sub">原著深度文本考證・人物心境・權謀沙盤・平行時空推演</div>
+        </div>
+      </a>
+
+      <!-- 核心模組導航選單 -->
+      <nav class="nav-menu">
+        <button class="nav-btn active" data-target="threads">💬 瑯琊熱門帖</button>
+        <button class="nav-btn" data-target="matrix">⚖️ 原著 vs 劇版</button>
+        <button class="nav-btn" data-target="sandtable">🔮 平行沙盤推演</button>
+        <button class="nav-btn" data-target="debunk">💡 瑯琊闢謠局</button>
+        <button class="nav-btn" data-target="quiz">📝 隨堂科舉考典</button>
+        <button class="nav-btn" data-target="polls">📊 天下清議民調</button>
+        <button class="nav-btn" data-target="quotes">📜 金句墨寶</button>
+      </nav>
+
+      <!-- 工具區：發起新帖、音效、字體、主題切換 -->
+      <div class="nav-tools">
+        <button class="btn-post-trigger" onclick="window.App.openCreateThreadModal()" title="發起瑯琊研討新帖">
+          <span>✍️</span> 發帖
+        </button>
+        <button id="soundToggleBtn" class="tool-icon-btn" title="切換金石音效">🔔</button>
+        <button id="fontDecreaseBtn" class="tool-icon-btn" title="縮小字體">A-</button>
+        <button id="fontIncreaseBtn" class="tool-icon-btn" title="放大字體">A+</button>
+        <button id="themeToggleBtn" class="tool-icon-btn" title="切換深色/明亮模式">🌙</button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ======================================================================
+       主體內容區域 (Main Wrapper)
+       ====================================================================== -->
+  <main class="main-wrapper">
+
+    <!-- 頂部古典意象 Banner 導引 -->
+    <section class="hero-scroll-banner">
+      <div class="hero-tag">
+        <span>📜</span> 55 頁對話研討紀實精粹・原著海宴《琅琊榜》硬核深度考證
+      </div>
+      <h1 class="hero-title font-serif-tc">一卷風雲・昭雪天下・古今思辨</h1>
+      <p class="hero-desc">
+        從戰狼佛牙的命運符號、雪蚧蟲與火寒奇毒的生物殘酷，到金殿呈冤中紀王「甚合情理」的最後一擊；從冰續丹換取九十天的壯烈成全，到飛流山中插花與庭生「宮裡的風從未停過」的歷史迴響。匯聚天下讀者格物致知的硬核論辨，還原最真實動人的赤子之心。
+      </p>
+
+      <!-- 統計數據列 -->
+      <div class="hero-stats-bar">
+        <div class="stat-box">
+          <div class="stat-number">15+</div>
+          <div class="stat-label">深度原創研討專帖</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">55 頁</div>
+          <div class="stat-label">原著文本對話考證</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">100%</div>
+          <div class="stat-label">回目台詞嚴格校正</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">6 大案</div>
+          <div class="stat-label">原著 vs 劇版深度鑑別</div>
+        </div>
+        <div class="stat-box">
+          <div class="stat-number">3 大局</div>
+          <div class="stat-label">平行時空沙盤推演</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 檢索與分類標籤欄 (僅在帖子專題頁顯示) -->
+    <section class="search-filter-bar" id="searchFilterSection">
+      <div class="search-input-wrapper">
+        <span class="search-icon">🔍</span>
+        <input 
+          type="text" 
+          id="forumSearchInput" 
+          class="search-input" 
+          placeholder="檢索瑯琊卷宗（輸入：冰續丹、紀王、佛牙、景琰、聶真、雪蚧蟲、庭生、幻覺...）"
+        >
+      </div>
+
+      <div class="category-tags-list" id="categoryTagsList">
+        <!-- 由 app.js 動態渲染 -->
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         模組 1：瑯琊熱門帖 (Threads Grid)
+         ==================================================================== -->
+    <section class="view-section active" id="section-threads">
+      <div class="threads-grid" id="threadsGrid">
+        <!-- 由 app.js 動態渲染 -->
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         模組 2：原著 vs 劇版 矩陣對照表 (Novel vs Drama)
+         ==================================================================== -->
+    <section class="view-section" id="section-matrix">
+      <div style="margin-bottom: 1.5rem;">
+        <h2 class="font-serif-tc" style="font-size: 1.6rem; color: var(--text-main); margin-bottom: 0.4rem;">
+          ⚖️ 原著小說 vs 電視劇 核心六大差異矩陣鑑別
+        </h2>
+        <p style="font-size: 0.92rem; color: var(--text-muted);">
+          深入對比海宴小說原著與經典電視劇在人物命運、情感去留、情節留白與台詞深度上的重大分歧。
+        </p>
+      </div>
+      <div class="diff-matrix-grid" id="diffMatrixGrid">
+        <!-- 由 app.js 動態渲染 -->
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         模組 3：平行時空沙盤推演 (Alternate History Simulator)
+         ==================================================================== -->
+    <section class="view-section" id="section-sandtable">
+      <div style="margin-bottom: 1.5rem;">
+        <h2 class="font-serif-tc" style="font-size: 1.6rem; color: var(--text-main); margin-bottom: 0.4rem;">
+          🔮 平行時空・瑯琊沙盤推演
+        </h2>
+        <p style="font-size: 0.92rem; color: var(--text-muted);">
+          如果歷史的齒輪稍有偏差，大梁的天下將走向何方？基於原著政治哲學與人物性格的硬核推演。
+        </p>
+      </div>
+      <div class="simulation-deck" id="simulationDeck">
+        <!-- 由 app.js 動態渲染 -->
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         模組 4：瑯琊闢謠局 (Debunking AI Hallucinations)
+         ==================================================================== -->
+    <section class="view-section" id="section-debunk">
+      <div style="margin-bottom: 1.5rem;">
+        <h2 class="font-serif-tc" style="font-size: 1.6rem; color: var(--text-main); margin-bottom: 0.4rem;">
+          💡 瑯琊閣闢謠局：讀者 vs AI 模型幻覺校準實錄
+        </h2>
+        <p style="font-size: 0.92rem; color: var(--text-muted);">
+          盤點 55 頁長卷中，讀者手持原著截圖嚴厲糾偏 AI「台詞腦補、回目張冠李戴、筆誤錯別字」的五大經典交鋒！
+        </p>
+      </div>
+      <div class="factcheck-grid" id="factcheckGrid">
+        <!-- 由 app.js 動態渲染 -->
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         模組 5：隨堂科舉考典 (Imperial Quiz)
+         ==================================================================== -->
+    <section class="view-section" id="section-quiz">
+      <div style="margin-bottom: 1.5rem; text-align: center;">
+        <h2 class="font-serif-tc" style="font-size: 1.7rem; color: var(--text-main); margin-bottom: 0.4rem;">
+          📝 瑯琊隨堂高難度科舉考典
+        </h2>
+        <p style="font-size: 0.94rem; color: var(--text-muted);">
+          十道嚴苛檢驗原著掌握度的硬核考題，測測您是「初入江湖白衣」還是「瑯琊閣掌筆大人」！
+        </p>
+      </div>
+      <div id="quizAppWrapper">
+        <!-- 由 app.js 動態渲染 -->
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         模組 6：天下清議民調 (Community Polls)
+         ==================================================================== -->
+    <section class="view-section" id="section-polls">
+      <div style="margin-bottom: 1.5rem;">
+        <h2 class="font-serif-tc" style="font-size: 1.6rem; color: var(--text-main); margin-bottom: 0.4rem;">
+          📊 天下清議・原著讀者觀點民調
+        </h2>
+        <p style="font-size: 0.92rem; color: var(--text-muted);">
+          投下您對爭議情節與人物動機的關鍵一票，即時查看江湖萬千同道的心聲分佈。
+        </p>
+      </div>
+      <div class="polls-grid" id="pollsGrid">
+        <!-- 由 app.js 動態渲染 -->
+      </div>
+    </section>
+
+    <!-- ====================================================================
+         模組 7：金句墨寶 (Golden Quotes)
+         ==================================================================== -->
+    <section class="view-section" id="section-quotes">
+      <div style="margin-bottom: 1.5rem;">
+        <h2 class="font-serif-tc" style="font-size: 1.6rem; color: var(--text-main); margin-bottom: 0.4rem;">
+          📜 瑯琊金句墨寶・思辨精言摘錄
+        </h2>
+        <p style="font-size: 0.92rem; color: var(--text-muted);">
+          一語中的，直擊靈魂深處。支持一鍵複製至剪貼簿，便於研討引用與書籤珍藏。
+        </p>
+      </div>
+      <div class="quotes-masonry" id="quotesMasonry">
+        <!-- 由 app.js 動態渲染 -->
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ======================================================================
+       彈窗：帖子詳情研讀 (Thread Detail Modal)
+       ====================================================================== -->
+  <div class="modal-overlay" id="threadDetailModal">
+    <div class="modal-content-card">
+      <div class="modal-header-bar">
+        <div class="modal-title-wrap">
+          <span style="font-size: 1.25rem;">📜</span>
+          <div>
+            <h3 class="font-serif-tc" id="modalDetailTitle" style="font-size: 1.15rem; color: var(--text-main); line-height: 1.4;"></h3>
+            <div id="modalDetailMeta" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 0.2rem;"></div>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="window.App.closeModal()" title="關閉卷宗">✕</button>
+      </div>
+      <div class="modal-body-scroll" id="modalDetailBody">
+        <!-- 由 app.js 動態填充 -->
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       彈窗：發起新論壇研討 (Create Thread Modal)
+       ====================================================================== -->
+  <div class="modal-overlay" id="createThreadModal">
+    <div class="modal-content-card" style="max-width: 650px;">
+      <div class="modal-header-bar">
+        <div class="modal-title-wrap">
+          <span style="font-size: 1.25rem;">✍️</span>
+          <div>
+            <h3 class="font-serif-tc" style="font-size: 1.15rem; color: var(--text-main);">發起瑯琊研討新帖</h3>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">發布您的獨到見解，與天下墨客同席爭鳴</div>
+          </div>
+        </div>
+        <button class="modal-close-btn" onclick="window.App.closeModal()">✕</button>
+      </div>
+
+      <div class="modal-body-scroll">
+        <form onsubmit="window.App.submitNewThread(event)">
+          <div style="margin-bottom: 1.2rem;">
+            <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">
+              主題類別
+            </label>
+            <select id="newThreadCategory" style="width: 100%; padding: 0.65rem; border-radius: 6px; border: 1px solid var(--border-strong); background: var(--bg-card); color: var(--text-main);">
+              <option value="affection">🕯️ 情義與告別</option>
+              <option value="intrigue">⚔️ 權謀與朝局</option>
+              <option value="identity">🔍 身分與剝洋蔥</option>
+              <option value="canon">📖 原著細節考證</option>
+              <option value="debunk">💡 考據闢謠與AI校準</option>
+            </select>
+          </div>
+
+          <div style="margin-bottom: 1.2rem;">
+            <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">
+              帖子標題
+            </label>
+            <input type="text" id="newThreadTitle" class="search-input" style="padding-left: 1rem;" placeholder="如：【人物論】譽王在九安山最後的反撲邏輯..." required>
+          </div>
+
+          <div style="margin-bottom: 1.2rem;">
+            <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">
+              引用原著名句 / 核心斷語 (選填)
+            </label>
+            <input type="text" id="newThreadQuote" class="search-input" style="padding-left: 1rem;" placeholder="引文將以金石印記樣式突出呈現...">
+          </div>
+
+          <div style="margin-bottom: 1.2rem;">
+            <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">
+              核心論述與思辨內容
+            </label>
+            <textarea id="newThreadSummary" class="reply-textarea" style="min-height: 120px;" placeholder="闡述您的論點、版本依據或心理分析細節..." required></textarea>
+          </div>
+
+          <div style="margin-bottom: 1.5rem;">
+            <label style="display: block; font-size: 0.85rem; font-weight: 700; margin-bottom: 0.4rem; color: var(--text-main);">
+              標籤 (用空格或逗號隔開)
+            </label>
+            <input type="text" id="newThreadTags" class="search-input" style="padding-left: 1rem;" placeholder="如：林殊 景琰 奪嫡">
+          </div>
+
+          <div style="display: flex; justify-content: flex-end; gap: 0.8rem;">
+            <button type="button" class="btn-read-detail" onclick="window.App.closeModal()">取消</button>
+            <button type="submit" class="btn-post-trigger">
+              <span>✍️</span> 正式刊載
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- ======================================================================
+       全域頁腳 (Site Footer)
+       ====================================================================== -->
+  <footer class="site-footer">
+    <div class="footer-content">
+      <div style="display: flex; align-items: center; gap: 0.6rem;">
+        <div class="brand-logo-seal" style="width: 30px; height: 30px; font-size: 1rem;">瑯</div>
+        <strong class="font-serif-tc" style="font-size: 1.1rem; color: var(--text-main);">瑯琊討論區・風雲思辨閣</strong>
+      </div>
+      <p style="max-width: 680px; line-height: 1.8;">
+        基於海宴小說《琅琊榜》原著全文與 55 頁人機深研考證文檔建構。<br>
+        致力於推動經典文學閱讀、版本考據糾偏、人物心理剖析與思辨教學。
+      </p>
+      <div class="footer-seals">
+        <span class="seal-tag">瑯琊閣印</span>
+        <span class="seal-tag">江左盟藏</span>
+        <span class="seal-tag">赤子丹心</span>
+      </div>
+      <div style="font-size: 0.75rem; color: var(--text-light); margin-top: 0.4rem;">
+        © 2026 瑯琊思辨論壇 | 全站支援響應式佈局、夜間模式與本地數據持久化
+      </div>
+    </div>
+  </footer>
+
+  <!-- 載入核心數據與應用引擎腳本 -->
+  <script src="data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
